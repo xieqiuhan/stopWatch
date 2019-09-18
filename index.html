@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>DeepRacer Challenge -Shenzhen Stopwatch</title>
+
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<link href="css/bootstrap-responsive.min.css" rel="stylesheet" />
+
+	<link href="css/custom.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+	<header>
+		<div class="container">
+			<div class="center">
+				<div id="stopWatch">
+					<h1 id="title">DeepRacer Challenge -Shenzhen Stopwatch</h1>
+					<div class="row">
+						<div class="span12">
+							<div id="time" class="pointable" style="font-weight:bold; width:100%; display:block;">00:00
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div id="divStart" class="span2 center">
+							<button id="btnStart" class="btn btn-large btn-block btn-primary" style="font-weight:bold;"
+								data-do="start" type="button">Start</button>
+						</div>
+					</div>
+					<div class="row hidden" id="divControls">
+						<div class="span2 center">
+							<div class="row">
+								<label class="radio-inline">
+									<button id="btnPause" class="btn btn-large btn-block" type="button">
+										Pause
+									</button>
+								</label>
+								<label class="radio-inline">
+									<button id="btnSplit" class="btn btn-large btn-block" type="button">
+										Split
+									</button>
+								</label>
+								<label class="radio-inline">
+									<button id="btnStop" class="btn btn-large btn-block" type="button">
+										Reset
+									</button>
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="clear"></div>
+			
+				<div id="lapTimes" class="hidden row center">
+					<div class="heightlap" style="margin-top:10px;">
+						<button class="btn hidden" id="btnClear" type="button">Clear</button>
+					</div>
+
+					<div class="span12 center " id="lapListCont" style="height:0px;">
+					
+						<div class="span2 center  ">
+								<table id="timeTable" class="table table-hover table-striped" style="width:70%; margin:auto;">
+									<thead class = "hidden">
+										<th>TeamName</th>
+										<th>Rotation</th>
+										<th>Score</th>
+										<th>Status</th>
+										<th>CreateOn</th>
+									</thead>
+									<tbody id="lapList">
+									</tbody>
+								</table>
+						</div>
+					</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+	</header>
+
+	<script type="text/javascript" src="js/jquery.1.9.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.fittext.js"></script>
+	<script src="js/index.js"></script>
+
+
+</body>
+
+</html>
