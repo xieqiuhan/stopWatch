@@ -10,42 +10,36 @@ $(document).ready(function () {
 
 	var startTime;
 	var timeout;
-
+	var bol;
 	var pauseTime = 0;
 	var mils;
-	var paused = false;
+	//var paused = false;
 	var count = 0;
 	var split = 0;
 	$('#btnSplit').on('click', function () {
-		var con = confirm("valid result?");
-		var bol;
-		if (con == true) {
-			bol = true;
-		} else {
-			bol = false;
-		}
-		if (mils != undefined) {
-			if (mils > 0) {
-		
-				console.log(split);
+		$.confirm({
+			theme: 'supervan',
+			title: 'Confirm!',
+			content: 'Confirm if it is a valid grade!',
+			buttons: {
+				confirm: {
+					text: 'Valid',
+					btnClass: 'btn-blue',
+					keys: ['enter', 'shift'],
 
-				var time = milToTime(mils-split);
-				split = mils;
-				time = formatTime(time);
-				
-				count += 1;
-				var curTime = getNowFormatDate();
-				var teamName = "Alita";
-				var score = time.m + ':' + time.s + '.' + time.mils;
-				
-				console.log(score);
-				$('#timeTable thead').show();
-				$('#lapList').prepend('<tr class="timeRow"><td>' + teamName + '</td><td class="lapCount muted">' + count + "</td><td>" + score + '</td><td>' + bol + '</td><td>' + curTime + '</td></tr>');
-				$('#lapListCont').animate({
-					scrollTop: 0
-				}, "fast");
+					action: function () {
+						bol = true;
+						splitFunc(mils);
+					}
+
+				},
+				cancel: function () {
+					bol = false;
+					splitFunc(mils);
+				}
 			}
-		}
+		});
+
 
 		// var jsonStr = {
 		// 	"TeamName": [teamName],
@@ -61,17 +55,17 @@ $(document).ready(function () {
 		// 	cache:false,
 		// 	data:JSON.stringify(jsonStr),
 		// 	contentType:"application/json",
-			
+
 		// 	success: function (data,textStatus, request) {
 		// 	     alert('succeed')
-			  
+
 		// 	},
 		// 	error:function(XMLHttpRequest, textStatus, errorThrown){
 		// 		alert("请求对象XMLHttpRequest: "+XMLHttpRequest);
 		// 		alert("错误类型textStatus: "+textStatus);
 		// 		alert("异常对象errorThrown: "+errorThrown);
 		// 	   }
- 
+
 		// });
 
 
@@ -80,23 +74,23 @@ $(document).ready(function () {
 
 	});
 
-	$('#btnPause').on('click', function () {
-		if (paused == false) {
-			paused = true;
-			clearTimeout(timeout);
-			pauseTime = mils;
-			$(this).html('<i class="icon-play-circle"></i>Resume');
-			$('#time').addClass('paused');
-		} else {
-			paused = false;
-			$(this).html('<i class="icon-pause"></i>Pause');
-			startTime = new Date();
-			clock();
-		}
-	});
+	// $('#btnPause').on('click', function () {
+	// 	if (paused == false) {
+	// 		paused = true;
+	// 		clearTimeout(timeout);
+	// 		pauseTime = mils;
+	// 		$(this).html('<i class="icon-play-circle"></i>Resume');
+	// 		$('#time').addClass('paused');
+	// 	} else {
+	// 		paused = false;
+	// 		$(this).html('<i class="icon-pause"></i>Pause');
+	// 		startTime = new Date();
+	// 		clock();
+	// 	}
+	// });
 
 	$('#btnStop').on('click', function () {
-		$('#title').slideDown();
+		//	$('#title').slideDown();
 
 		$('#time').removeClass('paused');
 		paused = false;
@@ -107,13 +101,13 @@ $(document).ready(function () {
 		$('#btnClear').click();
 		$('#divControls').fadeOut(function () {
 			$('#divStart').fadeIn()
-			$('#btnPause').html('<i class="icon-pause"></i>Pause');
+
 		});
 	});
 	$('#btnStart').on('click', function () {
-		$('#title').slideUp(function () {
-			adjustHeight();
-		});
+		// $('#title').slideUp(function () {
+		// 	adjustHeight();
+		// });
 		startTime = new Date();
 		clock();
 		$('#divStart').fadeOut(function () {
@@ -131,6 +125,9 @@ $(document).ready(function () {
 		var outStr = time.m + ':' + time.s;
 		document.getElementById('time').innerHTML = outStr;
 		timeout = setTimeout(clock, 0);
+		if (mils > 4 * 60000) {
+			clearTimeout(timeout);
+		}
 	}
 
 	function formatTime(time) {
@@ -184,5 +181,26 @@ $(document).ready(function () {
 			" " + date.getHours() + seperator2 + date.getMinutes() +
 			seperator2 + date.getSeconds();
 		return currentdate;
+	}
+
+	function splitFunc(mils) {
+		if (mils != undefined) {
+			if (mils > 0) {
+				var time = milToTime(mils - split);
+				split = mils;
+				time = formatTime(time);
+
+				count += 1;
+				var curTime = getNowFormatDate();
+				var teamName = "Alita";
+				var score = time.m + ':' + time.s + '.' + time.mils;
+
+				$('#timeTable thead').show();
+				$('#lapList').prepend('<tr class="timeRow"><td>' + teamName + '</td><td class="lapCount muted">' + count + "</td><td>" + score + '</td><td>' + bol + '</td><td>' + curTime + '</td></tr>');
+				$('#lapListCont').animate({
+					scrollTop: 0
+				}, "fast");
+			}
+		}
 	}
 });
