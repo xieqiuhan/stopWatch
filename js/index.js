@@ -13,20 +13,22 @@ $(document).ready(function () {
 			var bol;
 			var pauseTime = 0;
 			var mils;
-			//var paused = false;
+		
 			var count = 0;
 			var split = 0;
 			$('#btnSplit').on('click', function () {
 					if (mils != undefined) {
 						if (mils > 0) {
+							console.log(mils - split);
 							var time = milToTime(mils - split);
 							split = mils;
 							time = formatTime(time);
-
 							count += 1;
-							var curTime = getNowFormatDate();
 							var teamName = "Alita";
-							var score = time.m + ':' + time.s + '.' + time.mils;
+							var score = time.s + '.' + time.mils;
+							console.log(time.s);
+							
+							var curTime = getNowFormatDate();
 						}
 					}
 						$.confirm({
@@ -87,6 +89,7 @@ $(document).ready(function () {
 					clearTimeout(timeout);
 					pauseTime = 0;
 					mils = 0;
+					split = 0;
 					$('#time').html('00:00');
 					$('#btnClear').click();
 					$('#divControls').fadeOut(function () {
@@ -121,9 +124,11 @@ $(document).ready(function () {
 
 				function formatTime(time) {
 					for (var i in time) {
+					
+					
 						if (i == "mils") {
 							if (time[i] < 1) {
-								time[i] = "00";
+								time[i] = "000";
 							} else
 							if (time[i] < 10) {
 								time[i] = "00" + time[i];
@@ -133,8 +138,10 @@ $(document).ready(function () {
 							}
 						} else if (time[i] < 10) {
 							time[i] = "0" + time[i];
+							
 						}
 					}
+					//console.log(time);
 					return time;
 				}
 
